@@ -20,7 +20,11 @@
                :log4cl)
   :components ((:module "src"
                 :components
-                ((:file "world2world"))))
+                ((:file "package")
+		 (:file "class"       :depends-on ("package"))
+		 (:file "language"    :depends-on ("class"))
+		 (:file "message"     :depends-on ("language"))
+		 (:file "world2world" :depends-on ("message")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
