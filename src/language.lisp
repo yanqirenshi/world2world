@@ -1,7 +1,7 @@
 (in-package :world2world)
 
 
-(defconstant *language* (make-hash-table)) 
+(defvar *language* (make-hash-table))
 
 
 (defun add-language (code &optional description)
@@ -18,4 +18,4 @@
 
 (defun refresh-language (&optional (data *lang-data*))
   (maphash #'(lambda (k v) (add-language k v))
-	   (alexandria:plist-hash-table data)))
+           (alexandria:plist-hash-table data)))
