@@ -2,13 +2,17 @@
 (defpackage world2world
   (:use :cl)
   (:nicknames :w2w)
-  (:export :add-language
-	   :get-language
-	   :languagep
-	   :add-message
-	   :get-control-string
-	   :communication
-	   :c*))
+  (:export :refresh-language
+           :add-language
+           :get-language
+           :languagep
+           :add-message
+           :get-messages
+           :get-control-string
+           :communication
+           :c*
+           :error*
+           :format*))
 (in-package :world2world)
 
 
@@ -16,9 +20,9 @@
 ;;; utility
 ;;;
 (defun asserts (&rest symbols)
-  (mapcar #'(lambda (symbol) 
-	      (assert symbol))
-	  symbols))
+  (mapcar #'(lambda (symbol)
+              (assert symbol))
+          symbols))
 
 
 
