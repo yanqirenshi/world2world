@@ -9,8 +9,11 @@
 (plan nil)
 
 
-(plan 3)
+(plan 7)
 
+;;;;;
+;;;;; world
+;;;;;
 (subtest "make-world"
   (let* ((language :test-lang)
          (description :description)
@@ -25,32 +28,35 @@
                 'error
                 "with language isn't keyword."))))
 
+;;;;;
+;;;;; Message
+;;;;;
 (subtest "make-message"
   (let* ((code :test-code)
          (language :test-lang)
-         (controler "test a=~a, b=~b")
+         (controller "test a=~a, b=~b")
          (description "test-description")
-         (message (make-message code language controler :description description)))
+         (message (make-message code language controller :description description)))
     (ok message)
     (is code (code message))
     (is language (language message))
-    (is controler (controler message) :test 'equalp)
+    (is controller (controller message) :test 'equalp)
     (is description (description message) :test 'equalp)
 
     (subtest "can raise error"
-      (is-error (make-message "test-code" language controler :description description)
+      (is-error (make-message "test-code" language controller :description description)
                 'error
                 "with code isn't keyword.")
-      (is-error (make-message code "test-language" controler :description description)
+      (is-error (make-message code "test-language" controller :description description)
                 'error
                 "with language isn't keyword."))))
 
 (subtest "add-message"
   (let* ((code :test-code)
          (language :test-lang)
-         (controler "test a=~a, b=~b")
+         (controller "test a=~a, b=~b")
          (description "test-description")
-         (message (make-message code language controler :description description)))
+         (message (make-message code language controller :description description)))
     (multiple-value-bind (ret-message ret-code ret-language)
         (add-message message)
       (is ret-message message)
@@ -67,8 +73,8 @@
          (code2 :test-code2)
          (language1 :test-lang1)
          (language2 :test-lang2)
-         (controler "test a=~a, b=~b")
-         (message (make-message code1 language1 controler))
+         (controller "test a=~a, b=~b")
+         (message (make-message code1 language1 controller))
          (world1 (make-world language1))
          (world2 (make-world language2)))
     (add-message message)
@@ -80,4 +86,31 @@
       (ok (null (get-message code2 world1)))
       (ok (null (get-message code2 world2))))))
 
+
+;;;;;
+;;;;; communication
+;;;;;
+(subtest "c*"
+  (pass "Skip test of c*."))
+
+(subtest "format*"
+  (let* ((code :test-code)
+         (language :test-lang)
+         (controller "test a=~a, b=~a")
+         (message (make-message code language controller)))
+    (setf w2w::*world* (make-world language))
+    (add-message message)
+
+    (is (format* nil code 1 2) "test a=1, b=2" :test 'string=)))
+
+(subtest "error*"
+  (let* ((code :test-code)
+         (language :test-lang)
+         (controller "test a=~a, b=~a")
+         (message (make-message code language controller)))
+    (setf w2w::*world* (make-world language))
+    (add-message message)
+
+    (is-error (error* code 1 2)
+              'simple-error)))
 (finalize)

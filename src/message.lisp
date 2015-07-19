@@ -11,13 +11,13 @@
     (when messages
       (gethash lang messages))))
 
-(defun make-message (code language controler &key (description ""))
+(defun make-message (code language controller &key (description ""))
   (cond ((null (keywordp language)) (error "Code is not keyword. lang=~a" language))
         ((not  (keywordp code)) (error "Code is not keyword. code=~a" code)))
   (make-instance 'message
                  :code code
                  :language language
-                 :controler controler
+                 :controller controller
                  :description description))
 
 (defun duplicatep (duplicate)

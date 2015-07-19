@@ -19,10 +19,10 @@
              :accessor language
              :initarg :language
              :initform :hiroshima)
-   (controler :documentation ""
-              :accessor controler
-              :initarg :controler
-              :initform :hiroshima)
+   (controller :documentation ""
+               :accessor controller
+               :initarg :controller
+               :initform :hiroshima)
    (description :documentation ""
                 :accessor description
                 :initarg :description

@@ -2,29 +2,30 @@
 (defpackage world2world
   (:use :cl)
   (:nicknames :w2w)
-  (:export :languagep
-           :add-language
-           :get-language
-           ;; world
-           :world
-           :language
-           ;; world operator
-           :make-world
-           ;; message
-           :message
-           :code
-           :language
-           :controler
-           :description
-           ;; message operator
-           :add-message
-           :get-message
-           :make-message
-           ;; world2world
-           :communication
-           :c*
-           :error*
-           :format*))
+  (:export
+   :languagep
+   :add-language
+   :get-language
+   ;; world
+   :world
+   :language
+   ;; world operator
+   :make-world
+   ;; message
+   :message
+   :code
+   :language
+   :controller
+   :description
+   ;; message operator
+   :make-message
+   :add-message
+   :get-message
+   ;; world2world
+   :communication
+   :c*
+   :error*
+   :format*))
 (in-package :world2world)
 
 
