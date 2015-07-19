@@ -45,7 +45,7 @@
                 'error
                 "with language isn't keyword."))))
 
-(subtest "make-message"
+(subtest "add-message"
   (let* ((code :test-code)
          (language :test-lang)
          (controler "test a=~a, b=~b")
@@ -61,5 +61,23 @@
       (is-error (add-message nil)
                 'error
                 "with language is null"))))
+
+(subtest "get-message"
+  (let* ((code1 :test-code1)
+         (code2 :test-code2)
+         (language1 :test-lang1)
+         (language2 :test-lang2)
+         (controler "test a=~a, b=~b")
+         (message (make-message code1 language1 controler))
+         (world1 (make-world language1))
+         (world2 (make-world language2)))
+    (add-message message)
+    (let ((ret-message (get-message code1 world1)))
+      (ok ret-message)
+      (when ret-message
+        (is ret-message message))
+      (ok (null (get-message code1 world2)))
+      (ok (null (get-message code2 world1)))
+      (ok (null (get-message code2 world2))))))
 
 (finalize)
