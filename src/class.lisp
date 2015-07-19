@@ -1,20 +1,30 @@
 (in-package :world2world)
 
-
-(defclass world () 
+(defclass world ()
   ((language :documentation ""
-	     :accessor language
-	     :initarg :language
-	     :initform *default-language*)))
-
+             :accessor language
+             :initarg :language
+             :initform :hiroshima)
+   (description :documentation ""
+                :accessor description
+                :initarg :description
+                :initform :hiroshima)))
 
 (defclass message ()
-  ((code        :accessor code)
-   (expresses   :accessor expresses)
-   (description :accessor description)))
+  ((code :documentation ""
+         :accessor code
+         :initarg :code
+         :initform :hiroshima)
+   (language :documentation ""
+             :accessor language
+             :initarg :language
+             :initform :hiroshima)
+   (controler :documentation ""
+              :accessor controler
+              :initarg :controler
+              :initform :hiroshima)
+   (description :documentation ""
+                :accessor description
+                :initarg :description
+                :initform :hiroshima)))
 
-
-(defclass express ()
-   ((language    :accessor language)
-    (contents    :accessor contents)
-    (description :accessor description)))

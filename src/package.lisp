@@ -2,13 +2,25 @@
 (defpackage world2world
   (:use :cl)
   (:nicknames :w2w)
-  (:export :refresh-language
+  (:export :languagep
            :add-language
            :get-language
-           :languagep
+           ;; world
+           :world
+           :language
+           ;; world operator
+           :make-world
+           ;; message
+           :message
+           :code
+           :language
+           :controler
+           :description
+           ;; message operator
            :add-message
-           :get-messages
-           :get-control-string
+           :get-message
+           :make-message
+           ;; world2world
            :communication
            :c*
            :error*
@@ -24,14 +36,14 @@
               (assert symbol))
           symbols))
 
-
-
 ;;;
 ;;; data
 ;;;
-(defvar *default-language* :en)
+(defvar *world* nil)
 
-(defvar *lang-data*
+(defvar *message* (make-hash-table))
+
+(defvar *language-data*
   '(:aa "Afar"
     :ab "Abkhazian"
     :ae "Avestan"

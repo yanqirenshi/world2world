@@ -1,10 +1,10 @@
 #|
-  This file is a part of world2world project.
-  Copyright (c) 2015 Satoshi Iwasaki (yanqirenshi@gmail.com)
+This file is a part of world2world project.
+Copyright (c) 2015 Satoshi Iwasaki (yanqirenshi@gmail.com)
 |#
 
 #|
-  Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
+Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
 |#
 
 (in-package :cl-user)
@@ -21,10 +21,10 @@
   :components ((:module "src"
                 :components
                 ((:file "package")
-		 (:file "class"       :depends-on ("package"))
-		 (:file "language"    :depends-on ("class"))
-		 (:file "message"     :depends-on ("language"))
-		 (:file "world2world" :depends-on ("message")))))
+                 (:file "class"       :depends-on ("package"))
+                 (:file "world"       :depends-on ("class"))
+                 (:file "message"     :depends-on ("class"))
+                 (:file "world2world" :depends-on ("world" "message")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
