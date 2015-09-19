@@ -11,25 +11,65 @@
 
 # Usage
 ``` lisp
-W2W> (refresh-language)
+CL-USER> (in-package :w2w)
+#<PACKAGE "WORLD2WORLD">
+
+W2W> (add-expression :msg1 :hiroshima "これはテストじゃけぇね。値は ~a よ")
+#<EXPRESSION {1006936623}>
+
+W2W> (add-expression :msg1 :en "This is test. value is ~a.")
+#<EXPRESSION {10069D6E73}>
+
+W2W> (setf (default-world) :hiroshima)
+#<WORLD {100551D4D3}>
+
+W2W> (w2w:format* t :msg1 1)
+これはテストじゃけぇね。値は 1 よ
 NIL
-W2W> (add-message :msg1 :ja "test: val1=~a, val2=~a")
-"test: val1=~a, val2=~a"
-W2W> (format* t :msg1 1 2)
-test: val1=1, val2=2
-NIL
-W2W> (add-message :msg1 :en "test: arg1=~a, arg2=~a")
-"test: arg1=~a, arg2=~a"
-W2W> (setf *default-world* (make-instance 'world :language :en))
-#<WORLD {10077004B3}>
-W2W> (format* t :msg1 1 2)
-test: arg1=1, arg2=2
+
+W2W> (setf (default-world) :en)
+#<WORLD {10069D0243}>
+
+W2W> (format* t :msg1 1)
+This is test. value is 1.
 NIL
 ```
 
 ## Installation
 ```lisp
 (ql:quickload :world2world)
+```
+
+## Data structure
+``` text
+ +---------------+
+ | hash-table    |
+ |===============|
+ | key | package |
+ |-----+---------|
+ | val | +----------------------+
+ +-------| message [object]     |-+
+         |======================| |-+
+         | code    | [keyword]  | | |
+         | default | nil        | | |
+         | worlds  | +--------------------+
+         +-----------| hash-table         |
+           +---------|====================|
+             +-------| key | +--------------+
+                     |     | | world        |
+                     |     | |==============|
+                     |     | | code         |
+                     |     | | description  |
+                     |     | +--------------+
+                     |-----+--------------|
+                     | val | +--------------+
+                     +-------| expression   |-+
+                             |==============| |-+
+                             | controller   | | |
+                             | description  | | |
+                             +--------------+ | |
+                               +--------------+ |
+                                  +-------------+
 ```
 
 ## Author

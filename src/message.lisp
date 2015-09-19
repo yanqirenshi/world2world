@@ -1,37 +1,23 @@
 (in-package :world2world)
 
-(defun get-messages (code)
-  (asserts code)
-  (gethash code *message*))
+;;;;;
+;;;;; Message
+;;;;;
+(defvar *message* (make-hash-table))
 
-(defun get-message (code world)
-  (asserts code world)
-  (let ((messages (get-messages code))
-        (lang (language world)))
-    (when messages
-      (gethash lang messages))))
+(defun get-package-ht (package)
+  (let ((ht (gethash package *message*)))
+    (or ht
+        (setf (gethash package *message*)
+              (make-hash-table)))))
 
-(defun make-message (code language controller &key (description ""))
-  (cond ((null (keywordp language)) (error "Code is not keyword. lang=~a" language))
-        ((not  (keywordp code)) (error "Code is not keyword. code=~a" code)))
-  (make-instance 'message
-                 :code code
-                 :language language
-                 :controller controller
-                 :description description))
+(defun get-message* (package code)
+  (let ((message (gethash code (get-package-ht package))))
+    message))
 
-(defun duplicatep (duplicate)
-  (member duplicate '(:ignore :warning :errror)))
+(defun (setf get-message*) (message package code)
+  (setf (gethash code (get-package-ht package))
+        (if (eq (code message) code)
+            message
+            (error "ちがうもん入れたらイケんけぇ。"))))
 
-(defun add-message (message &key (duplicate :warning))
-  (asserts message duplicate)
-  (unless (duplicatep duplicate)
-    (error "こんとなん許しとらんけぇ。duplicate=~a" duplicate))
-  (let ((code (code message))
-        (lang (language message)))
-    ;; TODO: use duplicate
-    (cond ((null (gethash code *message*))
-           (setf (gethash code *message*) (make-hash-table))))
-    (let ((messages (get-messages code)))
-      (setf (gethash lang messages) message))
-    (values message code lang)))

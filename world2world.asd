@@ -21,10 +21,12 @@ Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
   :components ((:module "src"
                 :components
                 ((:file "package")
-                 (:file "class"       :depends-on ("package"))
+                 (:file "data"        :depends-on ("package"))
+                 (:file "class"       :depends-on ("data"))
                  (:file "world"       :depends-on ("class"))
                  (:file "message"     :depends-on ("class"))
-                 (:file "world2world" :depends-on ("world" "message")))))
+                 (:file "expression"  :depends-on ("class"))
+                 (:file "world2world" :depends-on ("world" "message" "expression")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames

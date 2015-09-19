@@ -1,18 +1,45 @@
 (in-package :world2world)
 
+(defun add-expression (message-code world-code controller &key (description "") (package *package*))
+  (setf (get-expression* package message-code (world-at world-code))
+        (make-instance 'expression
+                       :controller controller
+                       :description description)))
+
+(defun get-expression (message-code &key (world (default-world)) (package *package*))
+  (get-expression* package message-code world))
+
+
+;;;;;
+;;;;; Communication
+;;;;;
 (defgeneric communication (message to-you &rest values)
   (:documentation "")
+  (:method ((message-code symbol) (to-you symbol) &rest values)
+    (apply #'communication
+           message-code (world-at to-you)
+           values))
   (:method ((message-code symbol) (to-you world) &rest values)
-    (let ((controller (controller (get-message message-code to-you))))
+    (let ((expression (expression *package* message-code to-you)))
       (if values
-          (apply #'format (append `(t ,controller) values))
-          controller))))
+          (apply #'format t (controller expression) values)
+          (controller expression)))))
+
 
 (defmacro c* (message-code &rest values)
+  (assert *world*)
   `(communication ,message-code *world* ,@values))
 
-(defmacro error* (message-code &rest values)
-  `(error (controller (get-message ,message-code *world*)) ,@values))
 
-(defmacro format* (stream message-code &rest values)
-  `(format ,stream (controller (get-message ,message-code *world*)) ,@values))
+(defun format* (stream message-code &rest values)
+  (assert *world*)
+  (let ((expression (get-expression message-code :package *package* :world *world*)))
+    (assert expression)
+    (apply #'format stream (controller expression) values)))
+
+
+(defun error* (message-code &rest values)
+  (assert *world*)
+  (let ((expression (get-expression message-code :package *package* :world *world*)))
+    (assert expression)
+    (apply #'error (controller expression) values)))
