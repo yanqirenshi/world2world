@@ -5,15 +5,15 @@
          :accessor code
          :initarg :code
          :initform nil)
-   (default :documentation ""
-            :accessor default
-            :initarg :default
-            :initform nil)
+   (primary-world :documentation ""
+                  :accessor primary-world
+                  :initarg :primary-world
+                  :initform nil)
    (worlds :documentation ""
            :accessor worlds
            :initarg :worlds
-           :initform (make-hash-table))))
-
+           :initform (make-hash-table)))
+  (:documentation ""))
 
 (defclass world ()
   ((code :documentation ""
@@ -23,7 +23,8 @@
    (description :documentation ""
                 :accessor description
                 :initarg :description
-                :initform "")))
+                :initform ""))
+  (:documentation ""))
 
 
 (defclass expression ()
@@ -34,4 +35,5 @@
    (description :documentation ""
                 :accessor description
                 :initarg :description
-                :initform "")))
+                :initform ""))
+  (:documentation ""))

@@ -4,11 +4,10 @@
 ;;;;; Expression
 ;;;;;
 (defun get-expression* (package message-code world)
-  (let ((msg (get-message* package message-code)))
-    (if msg
-        (gethash world (worlds msg))
-        ;; TODO: use message's default
-        nil)))
+  (let ((message (get-message* package message-code)))
+    (assert message)
+    (or (gethash world (worlds message))
+        (gethash (primary-world message) (worlds message)))))
 
 (defun ensure-message (package message-code world)
   (let ((message (get-message* package message-code)))
@@ -16,8 +15,9 @@
         (setf (get-message* package message-code)
               (make-instance 'message
                              :code message-code
-                             :default world)))))
+                             :primary-world world)))))
 
 (defun (setf get-expression*) (expression package message-code world)
-  (setf (gethash world (worlds (ensure-message package message-code world)))
-        expression))
+  (let ((message (ensure-message package message-code world)))
+    (setf (gethash world (worlds message))
+          expression)))
