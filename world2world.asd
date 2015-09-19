@@ -16,8 +16,7 @@ Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
   :version "0.1"
   :author "Satoshi Iwasaki"
   :license "LLGPL"
-  :depends-on (:alexandria
-               :log4cl)
+  :depends-on nil
   :components ((:module "src"
                 :components
                 ((:file "package")
