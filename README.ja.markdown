@@ -3,7 +3,7 @@
 
 プロジェクト名は Underground Resistance の名盤から拝借しました。
 
-![](http://cdn.discogs.com/44n0Dn7b0YCE5IT2V-Fh314gF9Y=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb()/discogs-images/R-2123-1163629890.jpeg.jpg)
+![](http://cdn.discogs.com/44n0Dn7b0YCE5IT2V-Fh314gF9Y=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb()/discogs-images/R-2123-1163629890.jpeg.jpg)  
 [Underground Resistance ‎– World 2 World](http://www.discogs.com/Underground-Resistance-World-2-World/release/2123)
 
 このアルバムは素晴らしいので是非聞きましょう。
