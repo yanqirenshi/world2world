@@ -1,5 +1,5 @@
 # World2world
-multi language for messageing library
+Multi language library for messageing.
 
 ![](http://cdn.discogs.com/44n0Dn7b0YCE5IT2V-Fh314gF9Y=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb()/discogs-images/R-2123-1163629890.jpeg.jpg)  
 [Underground Resistance ‎– World 2 World](http://www.discogs.com/Underground-Resistance-World-2-World/release/2123)
@@ -20,7 +20,7 @@ W2W> (add-expression :msg1 :en "This is test. value is ~a.")
 W2W> (setf (default-world) :hiroshima)
 #<WORLD {100551D4D3}>
 
-W2W> (w2w:format* t :msg1 1)
+W2W> (format* t :msg1 1)
 これはテストじゃけぇね。値は 1 よ
 NIL
 
