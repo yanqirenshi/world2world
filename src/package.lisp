@@ -17,10 +17,14 @@
            #:world-at
            #:add-expression
            #:get-expression
+           #:add-messages
            #:communication
            #:c*
            #:error*
-           #:format*))
+           #:format*
+           ;; printer
+           #:print-packages
+           #:print-package))
 (in-package :world2world)
 
 

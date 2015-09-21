@@ -5,8 +5,8 @@
 ;;;;;
 (defvar *message* (make-hash-table))
 
-(defun get-package-ht (package)
-  (let ((ht (gethash package *message*)))
+(defun get-package-ht (package &key (messages *message*))
+  (let ((ht (gethash package messages)))
     (or ht
         (setf (gethash package *message*)
               (make-hash-table)))))

@@ -16,7 +16,7 @@ Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
   :version "0.1"
   :author "Satoshi Iwasaki"
   :license "LLGPL"
-  :depends-on nil
+  :depends-on (:alexandria)
   :components ((:module "src"
                 :components
                 ((:file "package")
@@ -25,7 +25,8 @@ Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
                  (:file "world"       :depends-on ("class"))
                  (:file "message"     :depends-on ("class"))
                  (:file "expression"  :depends-on ("class"))
-                 (:file "world2world" :depends-on ("world" "message" "expression")))))
+                 (:file "world2world" :depends-on ("world" "message" "expression"))
+                 (:file "printer"     :depends-on ("world2world")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
