@@ -10,10 +10,21 @@
   (get-expression* package message-code world))
 
 (defun add-message-validation-core (message)
-  (cond ((null message)  "Message is empty.")
-        ((null (find :code message)) "Not found :code in message.")
-        ((null (find :values message)) "Not found :values in message.")
-        (t nil)))
+  (let ((code (find :code message))
+        (code-contents (getf message :code))
+        (values (find :values message))
+        (values-contents (getf message :values)))
+    (cond ((null message)  "Message is empty.")
+          ;; code
+          ((null code) "Not found :code in message.")
+          ((null code-contents) ":code contents is nil.")
+          ((not (keywordp code-contents)) ":code contents is not keyword.")
+          ;; values
+          ((null values) "Not found :values in message.")
+          ((null values-contents) ":values contents is nil.")
+          ((not (listp values-contents)) ":code contents is not keyword.")
+          ;; ok
+          (t nil))))
 
 (defun add-message-validation (message)
   (let ((msg (add-message-validation-core message)))
