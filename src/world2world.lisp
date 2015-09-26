@@ -9,9 +9,20 @@
 (defun get-expression (message-code &key (world (default-world)) (package *package*))
   (get-expression* package message-code world))
 
+(defun add-message-validation-core (message)
+  (cond ((null message)  "Message is empty.")
+        ((null (find :code message)) "Not found :code in message.")
+        ((null (find :values message)) "Not found :values in message.")
+        (t nil)))
+
+(defun add-message-validation (message)
+  (let ((msg (add-message-validation-core message)))
+    (when msg (warn "Skip message. ~a message=~S" msg message))
+    (not msg)))
+
 (defun add-messages (message-list)
   (let* ((message (car message-list)))
-    (when message
+    (when (add-message-validation message)
       (dolist (expression (getf message :values))
         (add-expression (getf message :code)
                         (or (getf expression :world)
