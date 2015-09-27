@@ -20,7 +20,10 @@ Author: Satoshi Iwasaki (yanqirenshi@gmail.com)
   :components ((:module "src"
                 :components
                 ((:file "package")
-                 (:file "data"        :depends-on ("package"))
+                 (:module "data"
+                  :components ((:file "languages")
+                               (:file "messages"))
+                  :depends-on ("package"))
                  (:file "class"       :depends-on ("data"))
                  (:file "world"       :depends-on ("class"))
                  (:file "message"     :depends-on ("class"))
