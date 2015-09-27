@@ -55,11 +55,11 @@
 
 (defun print-message (code &key (package *package*) (messages *message*) (stream t))
   (let ((message (get-message* package code :messages messages)))
-    (unless message (error "Not found message. message=~a, package=~a, code=~a" package message code))
-    (format stream "Objext = ~a~2%" message)
+    (unless message (error "Not found message. messagse=~a, package=~a, code=~a" package messages code))
+    (format stream "~%~a~%" message)
     (dolist (item '(code primary-world worlds))
       (format stream "| ~13a | ~a~%" item (funcall item message)))
-    (format stream "~%<<expressions>~%" message)
+    (format stream "~%<<Expressions>>~%")
     (print-message-expression-list (worlds message) :stream stream)))
 
 
@@ -67,5 +67,14 @@
 ;;; print-message
 ;;;
 (defun print-expression (code world &key (package *package*) (messages *message*) (stream t))
-  (values code world package messages stream))
+  (let* ((world (if (keywordp world) (world-at world) world))
+         (expression (get-expression* package code world :messages messages)))
+    (unless expression (error "Not found expression. messages=~a, package=~a, code=~a, world=~a" package messages code world))
+    (format stream
+            "~a~2%<<~A>>~%~S~2%<<~A>>~%~S~%~%"
+            expression
+            'controller
+            (controller expression)
+            'description
+            (description expression))))
 
