@@ -2,6 +2,9 @@
 (defpackage world2world
   (:use :cl)
   (:nicknames :w2w)
+  (:import-from :alexandria
+                #:hash-table-keys
+                #:compose)
   (:export #:world
            #:default-world
            ;; class
@@ -24,7 +27,9 @@
            #:format*
            ;; printer
            #:print-packages
-           #:print-package))
+           #:print-package
+           #:print-message
+           #:print-expression))
 (in-package :world2world)
 
 
