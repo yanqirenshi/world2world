@@ -3,14 +3,14 @@
 ;;;;;
 ;;;;; Expression
 ;;;;;
-(defun get-expression* (package message-code world)
-  (let ((message (get-message* package message-code)))
+(defun get-expression* (package message-code world &key (messages *message*))
+  (let ((message (get-message* package message-code :messages messages)))
     (assert message)
     (or (gethash world (worlds message))
         (gethash (primary-world message) (worlds message)))))
 
-(defun ensure-message (package message-code world)
-  (let ((message (get-message* package message-code)))
+(defun ensure-message (package message-code world &key (messages *message*))
+  (let ((message (get-message* package message-code :messages messages)))
     (or message
         (setf (get-message* package message-code)
               (make-instance 'message

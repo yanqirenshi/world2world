@@ -9,6 +9,39 @@
 (defun get-expression (message-code &key (world (default-world)) (package *package*))
   (get-expression* package message-code world))
 
+(defun add-message-validation-core (message)
+  (let ((code (find :code message))
+        (code-contents (getf message :code))
+        (values (find :values message))
+        (values-contents (getf message :values)))
+    (cond ((null message)  "Message is empty.")
+          ;; code
+          ((null code) "Not found :code in message.")
+          ((null code-contents) ":code contents is nil.")
+          ((not (keywordp code-contents)) ":code contents is not keyword.")
+          ;; values
+          ((null values) "Not found :values in message.")
+          ((null values-contents) ":values contents is nil.")
+          ((not (listp values-contents)) ":code contents is not keyword.")
+          ;; ok
+          (t nil))))
+
+(defun add-message-validation (message)
+  (let ((msg (add-message-validation-core message)))
+    (when msg (warn "Skip message. ~a message=~S" msg message))
+    (not msg)))
+
+(defun add-messages (message-list)
+  (let* ((message (car message-list)))
+    (when (add-message-validation message)
+      (dolist (expression (getf message :values))
+        (add-expression (getf message :code)
+                        (or (getf expression :world)
+                            (getf expression :language))
+                        (getf expression :controller)
+                        :description (getf expression :description)))
+      (add-messages (cdr message-list)))))
+
 
 ;;;;;
 ;;;;; Communication
