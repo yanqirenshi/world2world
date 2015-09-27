@@ -12,12 +12,12 @@
 (defun ensure-message (package message-code world &key (messages *message*))
   (let ((message (get-message* package message-code :messages messages)))
     (or message
-        (setf (get-message* package message-code)
+        (setf (get-message* package message-code :messages messages)
               (make-instance 'message
                              :code message-code
                              :primary-world world)))))
 
-(defun (setf get-expression*) (expression package message-code world)
-  (let ((message (ensure-message package message-code world)))
+(defun (setf get-expression*) (expression package message-code world &key (messages *message*))
+  (let ((message (ensure-message package message-code world :messages messages)))
     (setf (gethash world (worlds message))
           expression)))

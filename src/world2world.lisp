@@ -1,5 +1,17 @@
+#|
+
+*messages* を利用することを前提としたオペレータ郡です。
+
+通常はこれを利用してください。
+
+カスタマイズしたい場合はこれと同じような関数を時前のアプリに実装してください。
+
+|#
 (in-package :world2world)
 
+;;;;;
+;;;;; Add Message/Expression
+;;;;;
 (defun add-expression (message-code world-code controller &key (description "") (package *package*))
   (setf (get-expression* package message-code (world-at world-code))
         (make-instance 'expression

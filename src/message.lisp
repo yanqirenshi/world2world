@@ -14,8 +14,8 @@
 (defun get-message* (package code &key (messages *message*))
   (gethash code (get-package-ht package :messages messages)))
 
-(defun (setf get-message*) (message package code)
-  (setf (gethash code (get-package-ht package))
+(defun (setf get-message*) (message package code &key (messages *message*))
+  (setf (gethash code (get-package-ht package :messages messages))
         (if (eq (code message) code)
             message
             (error "ちがうもん入れたらイケんけぇ。"))))
