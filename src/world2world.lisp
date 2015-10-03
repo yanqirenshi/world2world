@@ -43,7 +43,7 @@
     (when msg (warn "Skip message. ~a message=~S" msg message))
     (not msg)))
 
-(defun add-messages (message-list)
+(defun add-messages-core (package message-list)
   (let* ((message (car message-list)))
     (when (add-message-validation message)
       (dolist (expression (getf message :values))
@@ -51,8 +51,19 @@
                         (or (getf expression :world)
                             (getf expression :language))
                         (getf expression :controller)
-                        :description (getf expression :description)))
-      (add-messages (cdr message-list)))))
+                        :description (getf expression :description)
+                        :package package))
+      (add-messages-core package (cdr message-list)))))
+
+(defun add-messages (message-list &key (with-package nil))
+  (if with-package
+      (dolist (item message-list)
+        (when (getf item :pacakge)
+          (let ((pakage (find-package (getf item :pacakge))))
+            (assert pakage)
+            (add-messages-core pakage (getf item :values)))))
+      (add-messages-core *package* message-list)))
+
 
 
 ;;;;;
