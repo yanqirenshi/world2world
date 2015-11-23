@@ -90,12 +90,12 @@
 (defun format* (stream message-code &rest values)
   (assert *world*)
   (let ((expression (get-expression message-code :package *package* :world *world*)))
-    (assert expression)
+    (unless expression (expression-not-found-error message-code))
     (apply #'format stream (controller expression) values)))
 
 
 (defun error* (message-code &rest values)
   (assert *world*)
   (let ((expression (get-expression message-code :package *package* :world *world*)))
-    (assert expression)
+    (unless expression (expression-not-found-error message-code))
     (apply #'error (controller expression) values)))

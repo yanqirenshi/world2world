@@ -5,7 +5,7 @@
 ;;;;;
 (defun get-expression* (package message-code world &key (messages *message*))
   (let ((message (get-message* package message-code :messages messages)))
-    (assert message)
+    (unless message (message-not-found-error message-code))
     (or (gethash world (worlds message))
         (gethash (primary-world message) (worlds message)))))
 
@@ -19,5 +19,6 @@
 
 (defun (setf get-expression*) (expression package message-code world &key (messages *message*))
   (let ((message (ensure-message package message-code world :messages messages)))
+    (unless message (message-not-found-error message-code))
     (setf (gethash world (worlds message))
           expression)))
