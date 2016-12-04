@@ -24,6 +24,7 @@
            #:communication
            #:c*
            #:error*
+           #:%format*
            #:format*
            ;; printer
            #:print-packages

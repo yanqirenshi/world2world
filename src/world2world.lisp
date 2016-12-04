@@ -87,12 +87,17 @@
   `(communication ,message-code *world* ,@values))
 
 
-(defun format* (stream message-code &rest values)
-  (assert *world*)
-  (let ((expression (get-expression message-code :package *package* :world *world*)))
+(defun %format* (package world stream message-code &rest values)
+  (assert package)
+  (assert world)
+  (let ((expression (get-expression message-code
+                                    :package package
+                                    :world world)))
     (unless expression (expression-not-found-error message-code))
     (apply #'format stream (controller expression) values)))
 
+(defun format* (stream message-code &rest values)
+  (apply #'%format* *package* *world* stream message-code values))
 
 (defun error* (message-code &rest values)
   (assert *world*)
