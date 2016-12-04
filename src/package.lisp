@@ -23,6 +23,7 @@
            #:add-messages
            #:communication
            #:c*
+           #:%error*
            #:error*
            #:%format*
            #:format*

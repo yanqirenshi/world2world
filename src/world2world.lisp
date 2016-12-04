@@ -87,6 +87,9 @@
   `(communication ,message-code *world* ,@values))
 
 
+;;;;;
+;;;;; format*
+;;;;;
 (defun %format* (package world stream message-code &rest values)
   (assert package)
   (assert world)
@@ -99,8 +102,18 @@
 (defun format* (stream message-code &rest values)
   (apply #'%format* *package* *world* stream message-code values))
 
-(defun error* (message-code &rest values)
-  (assert *world*)
-  (let ((expression (get-expression message-code :package *package* :world *world*)))
+
+;;;;;
+;;;;; error*
+;;;;;
+(defun %error* (package world message-code &rest values)
+  (assert package)
+  (assert world)
+  (let ((expression (get-expression message-code
+                                    :package package
+                                    :world world)))
     (unless expression (expression-not-found-error message-code))
     (apply #'error (controller expression) values)))
+
+(defun error* (message-code &rest values)
+  (%error* *package* *world* message-code values))
