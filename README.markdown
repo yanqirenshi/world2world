@@ -1,7 +1,7 @@
 # World2world
 Multi language library for messageing.
 
-![](http://cdn.discogs.com/44n0Dn7b0YCE5IT2V-Fh314gF9Y=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb()/discogs-images/R-2123-1163629890.jpeg.jpg)  
+![](https://img.discogs.com/7E6Dk1lSdX_idBZPJMk8hClnd4U=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-2123-1163629890.jpeg.jpg)  
 [Underground Resistance ‎– World 2 World](http://www.discogs.com/Underground-Resistance-World-2-World/release/2123)
 
 
